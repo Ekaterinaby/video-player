@@ -1,22 +1,16 @@
  const player = document.querySelector('.player');
-
  const video = player.querySelector('.viewer');
  const togglernav = player.querySelector('.play2');
  const toggler = player.querySelector('.toggle');
  const mutebtn = player.querySelector('.mute');
 
-
-
  /* PLAY PAUSE */
-
-
  function togglePlay() {
      const method = video.paused ? 'play' : 'pause';
      video[method]();
  }
 
-
-
+ /* volume */
  const volumeIcons = document.querySelectorAll('mute');
  const volumeButton = document.getElementById('mute-button');
  const imgMute = document.getElementById('mute-on').classList;
@@ -44,8 +38,6 @@
          volumeMute.add("hidden");
      }
  };
-
-
 
  function toggleMute() {
      video.muted = !video.muted;
@@ -89,7 +81,6 @@
  }
 
  /* FULLSCREEN */
-
  const fullscreenButton = document.getElementById('fullscreen-button');
  const videoContainer = document.getElementById('video_block');
 
@@ -119,8 +110,6 @@
          fullscreenButton.setAttribute('data-title', 'Full screen (f)')
      }
  }
-
-
 
  /*PROGRESS-BAR*/
  const timeElapsed = document.getElementById('time-elapsed');
@@ -155,16 +144,11 @@
      timeElapsed.setAttribute('datetime', `${time.minutes}m ${time.seconds}s`);
  }
 
- // updateProgress indicates how far through the video
- // the current playback is by updating the progress bar
  function updateProgress() {
      seek.value = Math.floor(video.currentTime);
      progressBar.value = Math.floor(video.currentTime);
  }
 
- // updateSeekTooltip uses the position of the mouse on the progress bar to
- // roughly work out what point in the video the user will skip to if
- // the progress bar is clicked at that point
  function updateSeekTooltip(event) {
      const skipTo = Math.round(
          (event.offsetX / event.target.clientWidth) *
@@ -177,9 +161,6 @@
      seekTooltip.style.left = `${event.pageX - rect.left}px`;
  }
 
-
- // skipAhead jumps to a different point in the video when the progress bar
- // is clicked
  function skipAhead(event) {
      const skipTo = event.target.dataset.seek ?
          event.target.dataset.seek :
@@ -190,15 +171,7 @@
  }
 
 
-
- /*VOLUME*/
-
-
-
  let muteBtn = document.getElementById('mute-button');
-
-
-
 
  function mute() {
      if (video.muted) {
@@ -230,7 +203,6 @@
  }
 
 
-
  // shortkey
  function keyboardShortcuts(event) {
      const { key } = event;
@@ -252,23 +224,11 @@
      }
  }
 
-
-
-
-
-
-
-
-
-
  /*const progress = player.querySelector('.progress');
  const progressBar = player.querySelector('.progress__filled');*/
 
  const skipButtons = player.querySelectorAll('[data-skip]');
  const ranges = player.querySelectorAll('.player__slider');
-
- /* Build out functions */
-
 
  function skip() {
      video.currentTime += parseFloat(this.dataset.skip);
@@ -278,14 +238,10 @@
      video[this.name] = this.value;
  }
 
-
-
  function scrub(e) {
      const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
      video.currentTime = scrubTime;
  }
-
-
  video.addEventListener('click', togglePlay);
  mutebtn.addEventListener('click', toggleMute);
  video.addEventListener('volumechange', updateVolumeIcon);
@@ -302,8 +258,6 @@
  skipButtons.forEach(button => button.addEventListener('click', skip));
  ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
  ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
-
-
  videoContainer.addEventListener('fullscreenchange', updateFullscreenButton);
  video.addEventListener('click', animatePlayback);
  seek.addEventListener('input', skipAhead);

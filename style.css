@@ -201,7 +201,7 @@ progress {
     top: 0;
     left: 0;
     background: #000;
-    border: none;
+    border: none; display:none
 }
 
 progress::-webkit-progress-bar {

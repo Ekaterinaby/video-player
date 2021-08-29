@@ -9,13 +9,12 @@
 
  /* PLAY PAUSE */
 
-
  function togglePlay() {
      const method = video.paused ? 'play' : 'pause';
      video[method]();
  }
 
-
+ /* volume */
 
  const volumeIcons = document.querySelectorAll('mute');
  const volumeButton = document.getElementById('mute-button');
@@ -120,8 +119,6 @@
      }
  }
 
-
-
  /*PROGRESS-BAR*/
  const timeElapsed = document.getElementById('time-elapsed');
  const duration = document.getElementById('duration');
@@ -191,7 +188,7 @@
 
 
 
- /*VOLUME*/
+
 
 
 
@@ -258,9 +255,6 @@
 
 
 
-
-
-
  /*const progress = player.querySelector('.progress');
  const progressBar = player.querySelector('.progress__filled');*/
 
@@ -302,8 +296,6 @@
  skipButtons.forEach(button => button.addEventListener('click', skip));
  ranges.forEach(range => range.addEventListener('change', handleRangeUpdate));
  ranges.forEach(range => range.addEventListener('mousemove', handleRangeUpdate));
-
-
  videoContainer.addEventListener('fullscreenchange', updateFullscreenButton);
  video.addEventListener('click', animatePlayback);
  seek.addEventListener('input', skipAhead);

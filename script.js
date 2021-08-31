@@ -1,4 +1,4 @@
- const player = document.querySelector('.player');
+  const player = document.querySelector('.player');
  const video = player.querySelector('.viewer');
  const togglernav = player.querySelector('.play2');
  const toggler = player.querySelector('.toggle');
@@ -203,10 +203,50 @@
  }
 
 
+
+ function arrowUpVolume() {
+     if (video.volume === 1) return;
+     speaker.classList.remove('mute');
+     video.muted = false;
+     video.volume = +(video.volume).toFixed(2) + 0.1;
+     soundProgress.value = video.volume;
+     rangePosition(soundProgress, video.volume * 100);
+ }
+
+ function arrowDownVolume() {
+     if (video.volume !== 0) {
+         video.volume = +(video.volume).toFixed(2) - 0.1;
+         if (video.volume === 0) {
+             video.muted = true;
+             speaker.classList.add('mute');
+         }
+         soundProgress.value = video.volume;
+         rangePosition(soundProgress, video.volume * 100);
+     }
+ }
+
+ function showPlayBackRate() {
+     playRate.innerHTML = `X ${video.playbackRate}`;
+     setTimeout(() => { playRate.innerHTML = '' }, 1000)
+ }
+
+ function faster() {
+     if (video.playbackRate >= 2) return;
+     video.playbackRate += 0.25;
+     showPlayBackRate();
+ }
+
+ function slower() {
+     if (video.playbackRate <= 0.5) return;
+     video.playbackRate -= 0.25
+     showPlayBackRate();
+ }
+
  // shortkey
  function keyboardShortcuts(event) {
      const { key } = event;
      switch (key) {
+
          case 'k':
              togglePlay();
              animatePlayback();
@@ -220,6 +260,19 @@
              break;
          case 'p':
              togglePip();
+             break;
+
+         case 'ArrowUp':
+             arrowUpVolume();
+             break;
+         case 'ArrowDown':
+             arrowDownVolume();
+             break;
+         case '<':
+             slower();
+             break;
+         case '>':
+             faster();
              break;
      }
  }
